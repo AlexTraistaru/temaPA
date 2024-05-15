@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "bib1.h"
+#include "bib2.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,7 +19,7 @@ int main(int argc, char *argv[])
         eroare_file();
 
     int cerinte[5];
-    for (i = 0; i < 5; i++) ///i < 5 pentru ca avem 5 cerinte de facut
+    for (i = 1; i <= 5; i++) ///i <= 5 pentru ca avem 5 cerinte de facut
         fscanf(file3, "%d", &cerinte[i]);
 
 
@@ -26,12 +27,13 @@ int main(int argc, char *argv[])
     team** lista = creare_lista(file1, &nr_echipe);
 
 
-    if (cerinte[0] == 1 && cerinte[1] == 0)
-        cerinta1(file2, lista, nr_echipe);
-
-
     if (cerinte[1] == 1)
-        cerinta2(file2, lista, &nr_echipe);
+    {
+        if (cerinte[2] == 0)
+            cerinta1(file2, lista, nr_echipe);
+        else if (cerinte[2] == 1)
+                cerinta2(file2, lista, &nr_echipe);
+    }
 
 
     fclose(file1);
