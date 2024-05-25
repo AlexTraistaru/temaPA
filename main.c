@@ -2,6 +2,7 @@
 #include "bib1.h"
 #include "bib2.h"
 #include "bib3.h"
+#include "bib4.h"
 
 int main(int argc, char *argv[])
 {
@@ -34,11 +35,19 @@ int main(int argc, char *argv[])
     }
 
 
-    team* ultimii_8 = NULL;
+    team* primii_8 = NULL;
     if (cerinte[2] == 1)
     {
         //printf("3 ");
-        cerinta3(argv[3], lista, nr_echipe, &ultimii_8);
+        cerinta3(argv[3], lista, nr_echipe, &primii_8);
+    }
+
+
+    BST* tree = NULL;
+    if (cerinte[3] == 1)
+    {
+        //printf("4 ");
+        cerinta4(argv[3], primii_8, tree);
     }
 
 
