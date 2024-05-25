@@ -183,7 +183,15 @@ void free_coada(queue* q)
 }
 
 
-void cerinta3(char* argv, team** lista, int nr_echipe, team** ultimii_8)
+void afiseaza_primii_8(team** primii_8)
+{
+    int i;
+    for (i = 0; i < 8; i++)
+        printf("%s\n", primii_8[i] -> team_name);
+}
+
+
+void cerinta3(char* argv, team** lista, int nr_echipe, team** primii_8)
 {
     printf("merge 3 ");
     stack* castigatori = NULL;
@@ -207,7 +215,10 @@ void cerinta3(char* argv, team** lista, int nr_echipe, team** ultimii_8)
         {
             fprintf(file, "%-34s-  %.2f\n", castiga -> val.team_name, castiga -> val.total_points);
             if (nr_echipe == 8)
-                adaug_inceput(ultimii_8, castiga -> val.team_name, castiga -> val.teammates, castiga -> val.total_points, castiga -> val.val);
+            {
+                adaug_inceput(primii_8, castiga -> val.team_name, castiga -> val.teammates, castiga -> val.total_points, castiga -> val.val);
+                //printf("%s\n", castiga -> val.team_name);
+            }
             castiga = castiga -> next;
         }
         free_coada(lista_coada); //mutam castigatorii in coada pentru urm runda
