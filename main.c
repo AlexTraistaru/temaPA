@@ -3,6 +3,8 @@
 #include "bib2.h"
 #include "bib3.h"
 #include "bib4.h"
+#include "bib5.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -16,7 +18,7 @@ int main(int argc, char *argv[])
     team** lista = creare_lista(argv[2], &nr_echipe);
 
 
-    int cerinte[5];
+    int cerinte[5];  //cerinte este legat de fisierul c.in, unde ni se soun ce exercitii trebuie sa rezolvam
     for (i = 0; i < 5; i++) ///i < 5 pentru ca avem 5 cerinte de facut
         fscanf(file, "%d", &cerinte[i]);
 
@@ -48,6 +50,15 @@ int main(int argc, char *argv[])
     {
         //printf("4 ");
         cerinta4(argv[3], primii_8, tree);
+    }
+
+
+    AVL* tree_avl = NULL;
+    team* lista_bst = NULL;
+    if (cerinte[4] == 1)
+    {
+        //printf("5 ");
+        cerinta5(argv[3], &tree_avl, primii_8, lista_bst, tree);
     }
 
 

@@ -3,7 +3,8 @@
 #include <string.h>
 #include <math.h>
 
-struct Player
+
+struct Player //structura pentru un jucator al fiecarei echipe
 {
     char* firstName;
     char* secondName;
@@ -13,7 +14,7 @@ struct Player
 typedef struct Player player;
 
 
-struct team
+struct team //structura unei echipe
 {
     char* team_name;
     int teammates;
@@ -26,7 +27,7 @@ typedef struct team team;
 
 void adaug_inceput(team** head, char* team_name, int teammates, float total_points, player valoare);
 void afisare(team* head);
-void cerinta1(FILE* file, team** lista1, int nr_echipe);
+void cerinta1(char* argv, team** lista1, int nr_echipe);
 void eroare_file();
 void eroare_aloc();
-team** creare_lista(FILE* file, int* nr_echipe);
+team** creare_lista(char* argv, int* nr_echipe);

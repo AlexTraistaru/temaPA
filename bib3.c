@@ -16,7 +16,7 @@ void nume(char* aux) //aceasta functie este folosita pentru a trata cazurile can
 }
 
 
-queue* create_coada()
+queue* create_coada() //functie prntru creearea cozii, din curs
 {
     queue *q = (queue*) malloc(sizeof(queue));
     if (q == NULL)
@@ -26,7 +26,7 @@ queue* create_coada()
 }
 
 
-void enqueue(queue* q, team* aux)
+void enqueue(queue* q, team* aux) //functie pentru adaugarea elementelor in coada, din curs
 {
     team* nou = (team*) malloc(sizeof(team));
     if (nou == NULL)
@@ -56,7 +56,7 @@ void enqueue(queue* q, team* aux)
 }
 
 
-team dequeue(queue* q)
+team dequeue(queue* q) //functie pentru scoaterea elementelor din coada, din curs
 {
     if (isEmpty_coada(q))
         exit(1);
@@ -86,19 +86,19 @@ team dequeue(queue* q)
 
 
 
-int isEmpty_coada(queue* q)
+int isEmpty_coada(queue* q) //functie care verifica daca coada este goala, din curs
 {
     return q -> front == NULL;
 }
 
 
-int isEmpty_stiva(stack* top)
+int isEmpty_stiva(stack* top) //functie care verifica daca stiva este goala, din curs
 {
     return top == NULL;
 }
 
 
-void push(stack** top, team* value)
+void push(stack** top, team* value) //aceasta functie adauga elemente in stiva, din curs
 {
     stack *nou = (stack*) malloc (sizeof(stack));
     if (nou == NULL)
@@ -120,7 +120,7 @@ void push(stack** top, team* value)
 }
 
 
-team pop(stack** top)
+team pop(stack** top) //aceasta functie scoate elemente din stiva, din curs
 {
     if (isEmpty_stiva(*top))
         exit(1);
@@ -132,21 +132,21 @@ team pop(stack** top)
 }
 
 
-void meciuri(FILE *file, int nr_echipe, queue *lista_coada, stack **castigatori, stack **invinsi)
+void meciuri(FILE *file, int nr_echipe, queue *lista_coada, stack **castigatori, stack **invinsi) //functia aceasta simuleaza petrecerea meciurilor, conform cerintei date
 {
-    for (int i = 0; i < nr_echipe; i += 2)
+    for (int i = 0; i < nr_echipe; i = i + 2)
     {
-        team prima_echipa = dequeue(lista_coada);
+        team prima_echipa = dequeue(lista_coada); //scot o echipa din coada
         nume(prima_echipa.team_name); //aplic functia nume pentru a retine doar numele echipei fara alte caractere suplimentare
-        team a_doua_echipa = dequeue(lista_coada);
+        team a_doua_echipa = dequeue(lista_coada);//scot alta echipa din coada, adica urmatoarea
         nume(a_doua_echipa.team_name); //aplic functia nume pentru a retinr doar numele echipei fara alte caractere suplimentare
         fprintf(file, "%-33s-%33s\n", prima_echipa.team_name, a_doua_echipa.team_name);
         if (prima_echipa.total_points > a_doua_echipa.total_points)
         {
-            prima_echipa.total_points = prima_echipa.total_points + 1;
-            push(castigatori, &prima_echipa);
-            push(invinsi, &a_doua_echipa);
-        } else
+            prima_echipa.total_points = prima_echipa.total_points + 1; //echipa castigatoare primeste un punct in plus
+            push(castigatori, &prima_echipa); //in cazul nostru prima echipa a fost castigatare, deci o introduc in stiva de castigatori
+            push(invinsi, &a_doua_echipa); //iar a doua echipa a fost invinsa deci merge la pierzatori
+        } else //aici se intampla identic cu ce e mai sus doar ca se inverseaza rolurile
             {
                 a_doua_echipa.total_points = a_doua_echipa.total_points + 1;
                 push(castigatori, &a_doua_echipa);
@@ -156,7 +156,7 @@ void meciuri(FILE *file, int nr_echipe, queue *lista_coada, stack **castigatori,
 }
 
 
-void free_stiva(stack** top)
+void free_stiva(stack** top) //aceasta functie elibereaza stiva
 {
     while (*top != NULL)
     {
@@ -170,7 +170,7 @@ void free_stiva(stack** top)
 }
 
 
-void free_coada(queue* q)
+void free_coada(queue* q) //functie care elibereaza coada
 {
     while (!isEmpty_coada(q))
     {
@@ -183,7 +183,7 @@ void free_coada(queue* q)
 }
 
 
-void afiseaza_primii_8(team** primii_8)
+void afiseaza_primii_8(team** primii_8) //aceasta functie afiseaza primii_8 in caz ca vreau sa ma asigur ca se retin ok cele mai bune 8 echipe din joc
 {
     int i;
     for (i = 0; i < 8; i++)
@@ -191,12 +191,12 @@ void afiseaza_primii_8(team** primii_8)
 }
 
 
-void cerinta3(char* argv, team** lista, int nr_echipe, team** primii_8)
+void cerinta3(char* argv, team** lista, int nr_echipe, team** primii_8) //aceasta functie rezolva cerinta 3, apeland functiile descrise mai sus
 {
-    printf("merge 3 ");
-    stack* castigatori = NULL;
-    stack* invinsi = NULL;
-    int runda = 1;
+    ///printf("merge 3 ");
+    stack* castigatori = NULL; //la inceput stiva este goala
+    stack* invinsi = NULL; //la fel ca mai sus
+    int runda = 1; //prima runda este nr 1
     queue* lista_coada = create_coada();
     for (int i = nr_echipe - 1; i >= 0; i--)
         enqueue(lista_coada, lista[i]);
@@ -208,15 +208,15 @@ void cerinta3(char* argv, team** lista, int nr_echipe, team** primii_8)
         fprintf(file, "\n--- ROUND NO:%d\n", runda);
         meciuri(file, nr_echipe, lista_coada, &castigatori, &invinsi);
         fprintf(file, "\nWINNERS OF ROUND NO:%d\n", runda);
-        nr_echipe /= 2;
+        nr_echipe = nr_echipe / 2;  //dupa fiecare runda nr de echipe se injumatateste pentru ca jumatate merg la castigatori si restul al invinsi
         runda++;
         stack* castiga = castigatori;
-        while (castiga != NULL)
+        while (castiga != NULL)  //asa afisez castigatorii fiecare runde in parte
         {
             fprintf(file, "%-34s-  %.2f\n", castiga -> val.team_name, castiga -> val.total_points);
-            if (nr_echipe == 8)
+            if (nr_echipe == 8) //daca am ajuns la doar 8 echipe ramase, atunci ei sunt cei mai buni 8
             {
-                adaug_inceput(primii_8, castiga -> val.team_name, castiga -> val.teammates, castiga -> val.total_points, castiga -> val.val);
+                adaug_inceput(primii_8, castiga -> val.team_name, castiga -> val.teammates, castiga -> val.total_points, castiga -> val.val); //dupa ce ii stiu cine sunt ii adaug la inceput intr-o lista
                 //printf("%s\n", castiga -> val.team_name);
             }
             castiga = castiga -> next;

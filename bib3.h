@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 
-struct q
+struct q  //structura pentru un nod din coada
 {
     team *front;
     team *rear;
@@ -9,7 +9,7 @@ struct q
 typedef struct q queue;
 
 
-struct stack
+struct stack  //structura pentru un nod din stiva
 {
     team val;
     struct stack* next;
