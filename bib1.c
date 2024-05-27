@@ -69,7 +69,8 @@ team** creare_lista(char* argv, int* nr_echipe) //aceasta functie creeaza lista 
     for (i = 0; i < (*nr_echipe); i++) //i este folosit pentru a parcurge toate echipele, la modul general
     {
         int nr_coechipieri;
-        char team_name[50];
+        char *team_name;
+        team_name=(char*)malloc(sizeof(char)*40);
         lista[i] = NULL;
         fscanf(file, "%d ", &nr_coechipieri);
         fscanf(file, " %[^\n]s", team_name); //citesc un sir de caractere pana la intalnirea unui caracter de linie noua. acel spatiu de la " %[^\n]" ne asigura ca se ignora orice spatii inainte de a incepe citirea
