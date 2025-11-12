@@ -58,5 +58,3 @@ When inserting nodes, I handled the case where two teams had equal scores by sor
 
 I transformed the BST into an AVL Tree through balancing operations.
 Finally, I printed the elements from level 2 of the tree.
-
-✅ This project illustrates how classical data structures can be integrated to simulate a real-world elimination tournament system, combining algorithmic efficiency with object-oriented design principles.
